@@ -2,26 +2,21 @@
 
 describe('TODO MVC app', () => {
   beforeEach(() => {
-    cy.visit('https://todomvc.com/examples/vue/')
+    const todoItem = 'Walk the dog'
+
+    cy.visit('/')
+    cy.createToDoNewItem(todoItem)
   })
 
-  it.only('should add new todo item', () => {
-    const newItem = 'Item 1'
-
-    cy.createToDoNewItem(newItem);
-
+  it('should add new todo item', () => {
     cy.get('.view > label')
       .last()
-      .should('have.text', newItem)
+      .should('have.text', todoItem)
   })
 
   it('should mark the item as completed', () => {
-    const newItem = 'Item 2'
-
-    cy.createToDoNewItem(newItem);
-
     cy.get('.toggle').click();
-    cy.xpath(`//li[@class='todo completed']`).should('exist');
+    cy.get(`li[class='todo completed']`).should('exist');
   })
 
   it('should delete a item', () => {
@@ -35,5 +30,4 @@ describe('TODO MVC app', () => {
 
   it('should filter for Completed Items', () => {
   })
-
 })
